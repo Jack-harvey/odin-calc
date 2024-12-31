@@ -31,12 +31,16 @@ function clear() {
   numberOneMemory = [];
   numberTwoMemory = [];
   SignMemory = null;
+  updateScreen();
 }
 
 function updateScreen() {
   if (SignMemory == null) {
     const screenElement = document.querySelector("#screenRow");
-    screenElement.textContent = numberOneMemory.join("");
+    screenElement.textContent = numberOneMemory.join("") + "_";
+  } else {
+    const screenElement = document.querySelector("#screenRow");
+    screenElement.textContent = numberTwoMemory.join("") + "_";
   }
 }
 
@@ -45,7 +49,11 @@ function dotPressed(state) {
 }
 
 function numberPressed(number) {
-  if (!canDotBePressed) return;
+  if (!canDotBePressed && number === "dot") return;
+  if (number === "dot") {
+    number = ".";
+    dotPressed("disableDot");
+  }
 
   if (SignMemory == null) {
     numberOneMemory.push(number);
@@ -54,15 +62,39 @@ function numberPressed(number) {
     numberTwoMemory.push(number);
     updateScreen();
   }
+}
 
-  if (number === "dot") dotPressed("disableDot");
+function highlightButton(type) {
+  const button = document.querySelector(`#${type}`);
+  button.classList.toggle("highlight");
+}
+
+function mathButtonPressed(type) {
+  SignMemory = type;
+  highlightButton(type);
+}
+
+function signPressed(type) {
+  if (type === "clr") clear();
+  if (
+    type === "divide" ||
+    type === "multi" ||
+    type === "neg" ||
+    type === "add"
+  ) {
+    mathButtonPressed(type);
+  }
+  // if (type === "")
+  // if (type === "")
+  // if (type === "")
+  // if (type === "")
 }
 
 function buttonPressed(button) {
   if (!isNaN(button) || button === "dot") {
     numberPressed(button);
   } else {
-    console.log("it's not a number");
+    signPressed(button);
   }
 }
 

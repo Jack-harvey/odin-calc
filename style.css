@@ -72,3 +72,8 @@ div {
 .number {
   background-color: #313244;
 }
+
+.highlight {
+  background-color: #a6e3a1;
+  color: #1e1e2e;
+}

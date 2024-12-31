@@ -21,7 +21,7 @@ div {
   flex-direction: column;
 }
 
-#screen-row {
+#screenRow {
   padding-right: 10px;
   text-align: right;
   align-content: center;
@@ -30,23 +30,23 @@ div {
   background-color: #11111b;
 }
 
-#second-row {
+#secondRow {
   display: flex;
 }
 
-#third-row {
+#thirdRow {
   display: flex;
 }
 
-#fourth-row {
+#fourthRow {
   display: flex;
 }
 
-#fifth-row {
+#fifthRow {
   display: flex;
 }
 
-#sixth-row {
+#sixthRow {
   display: flex;
 }
 

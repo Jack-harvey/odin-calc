@@ -1,9 +1,10 @@
 const calculatorElement = document.querySelector("#calc");
-const screenElement = document.querySelector("#screenRow");
 
 let numberOneMemory = [];
 let numberTwoMemory = [];
 let SignMemory = null;
+
+let canDotBePressed = true;
 
 function addNumbers(n1, n2) {
   return n1 + n2;
@@ -32,9 +33,34 @@ function clear() {
   SignMemory = null;
 }
 
+function updateScreen() {
+  if (SignMemory == null) {
+    const screenElement = document.querySelector("#screenRow");
+    screenElement.textContent = numberOneMemory.join("");
+  }
+}
+
+function dotPressed(state) {
+  canDotBePressed = state === "disableDot" ? false : true;
+}
+
+function numberPressed(number) {
+  if (!canDotBePressed) return;
+
+  if (SignMemory == null) {
+    numberOneMemory.push(number);
+    updateScreen();
+  } else {
+    numberTwoMemory.push(number);
+    updateScreen();
+  }
+
+  if (number === "dot") dotPressed("disableDot");
+}
+
 function buttonPressed(button) {
   if (!isNaN(button) || button === "dot") {
-    console.log(button);
+    numberPressed(button);
   } else {
     console.log("it's not a number");
   }
@@ -45,21 +71,3 @@ document.addEventListener("DOMContentLoaded", () => {
     buttonPressed(e.target.getAttribute("id"));
   });
 });
-
-//
-//three main variables, n1, sign, n2
-//every button clicked should evaluate what process to take
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//

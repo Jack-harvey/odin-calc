@@ -1,21 +1,33 @@
 * {
   margin: 0px;
   padding: 0px;
+  box-sizing: border-box;
 }
+
 body {
-  background-color: black;
+  background-color: #1e1e2e;
   display: flex;
-  color: white;
+  color: #cdd6f4;
   font-size: 37px;
+  font-family: "Pixelify Sans", serif;
 }
 
 div {
-  border: 1px green solid;
+  border: 1px #585b70 solid;
 }
 
 #calc {
   display: flex;
   flex-direction: column;
+}
+
+#screen-row {
+  padding-right: 10px;
+  text-align: right;
+  align-content: center;
+  height: 150px;
+  font-size: 80px;
+  background-color: #11111b;
 }
 
 #second-row {
@@ -39,10 +51,24 @@ div {
 }
 
 .calcButton {
-  min-width: 50px;
-  height: 50px;
+  min-width: 100px;
+  height: 100px;
+  text-align: center;
+  align-content: center;
 }
 
 .double-width-button {
   flex-grow: 2;
+}
+
+#clr {
+  color: #f38ba8;
+}
+
+#equals {
+  color: #a6e3a1;
+}
+
+.number {
+  background-color: #313244;
 }

@@ -58,29 +58,37 @@ function buildNumber(number) {
   updateScreen();
 }
 
-function calculateMath(symbol) {
-  switch (symbol) {
+function calculateMath() {
+  let n1 = Number(numberOneMemory.join(""));
+  let n2 = Number(numberTwoMemory.join(""));
+  switch (signMemory) {
     case "add":
-      console.log(symbol);
-      break;
+      return addNumbers(n1, n2);
+
     case "neg":
-      console.log(symbol);
-      break;
+      return subtractNumbers(n1, n2);
+
     case "multi":
-      console.log(symbol);
-      break;
+      return multiplyNumbers(n1, n2);
+
     case "divide":
-      console.log(symbol);
-      break;
+      return divideNumbers(n1, n2);
+
     case "percent":
-      console.log(symbol);
-      break;
+      return addNumbers(n1, n2);
   }
 }
 
+function equalsCalled() {
+  let calculatedNumber = calculateMath();
+  console.log(calculatedNumber);
+}
+
 function symbolPressed(symbol) {
+  buildSecondNumber = true;
   if (!signMemory) {
     signMemory = symbol;
+
     return;
   }
 
@@ -111,16 +119,13 @@ function buttonPressed(target) {
   let targetClassList = target.classList;
   if (targetClassList.contains("number")) {
     buildNumber(target.getAttribute("id"));
-  }
-  if (targetClassList.contains("math-btn")) {
-    calculateMath(target.getAttribute("id"));
-  }
-  if (target.getAttribute("id") === "clr") {
+  } else if (targetClassList.contains("math-btn")) {
+    symbolPressed(target.getAttribute("id"));
+  } else if (target.getAttribute("id") === "clr") {
     clear();
-  }
-  if (target.getAttribute("id") === "del") {
+  } else if (target.getAttribute("id") === "del") {
     backspace();
-  }
+  } else equalsCalled();
 }
 
 document.addEventListener("DOMContentLoaded", () => {

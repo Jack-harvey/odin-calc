@@ -24,7 +24,7 @@ function multiplyNumbers(n1, n2) {
 function divideNumbers(n1, n2) {
   if (n1 === 0 || n2 === 0) {
     updateScreen("err_");
-    return 0;
+    return "err";
   }
   return n1 / n2;
 }
@@ -82,14 +82,21 @@ function calculateMath() {
 function equalsCalled() {
   let calculatedNumber = calculateMath();
   clear();
-  updateScreen(calculatedNumber);
   numberOneMemory.push(calculatedNumber);
+  updateScreen(calculatedNumber);
+  workingNumber = numberOneMemory;
 }
 
 function symbolPressed(symbol) {
   let symbolIcon = document.querySelector(`#${symbol}`).textContent;
-  buildSecondNumber = true;
-  signMemory = symbol;
+  if (!buildSecondNumber) {
+    buildSecondNumber = true;
+    signMemory = symbol;
+  } else {
+    equalsCalled();
+    signMemory = symbol;
+    buildSecondNumber = true;
+  }
   updateScreen(workingNumber.join("") + symbolIcon);
 }
 

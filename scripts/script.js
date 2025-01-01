@@ -34,14 +34,13 @@ function percentNumbers() {
 }
 
 function updateScreen(content = workingNumber.join("") + "_") {
-  screenElement.textContent = content;
+  if (content === workingNumber.join("") + "_") {
+    let n = Number(workingNumber.join("")).toFixed(3);
+    screenElement.textContent = Number(workingNumber.join("")).toFixed(3);
+  }
 
-  console.log("workingNumber");
-  console.log(workingNumber.join(""));
-  console.log("numberOneMemory");
-  console.log(numberOneMemory.join(""));
-  console.log("numberTwoMemory");
-  console.log(numberTwoMemory.join(""));
+  screenElement.textContent = content;
+  // if the array or number has a decimal in it do the following
 }
 
 function checkWorkingNumber() {
@@ -147,6 +146,8 @@ function keyPressed(key) {
     clear();
   } else if (key == "=" || key == "Enter") {
     equalsCalled();
+  } else if (key == ".") {
+    buildNumber("dot");
   } else if (key == "+") {
     symbolPressed("add");
   } else if (key == "-") {

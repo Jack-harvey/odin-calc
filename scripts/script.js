@@ -10,36 +10,32 @@ let buildSecondNumber = false;
 let canDotBePressed = true;
 
 function addNumbers(n1, n2) {
-  return n1 + n2;
+  return Math.round((n1 + n2 + Number.EPSILON) * 100) / 100;
 }
 
 function subtractNumbers(n1, n2) {
-  return n1 - n2;
+  return Math.round((n1 - n2 + Number.EPSILON) * 100) / 100;
 }
 
 function multiplyNumbers(n1, n2) {
-  return n1 * n2;
+  return Math.round((n1 * n2 + Number.EPSILON) * 100) / 100;
 }
 
 function divideNumbers(n1, n2) {
   if (n1 === 0 || n2 === 0) {
     return "err";
   }
-  return n1 / n2;
+  return Math.round((n1 / n2 + Number.EPSILON) * 100) / 100;
 }
 
 function percentNumbers() {
   let n1 = workingNumber.join("");
-  return n1 * (1 / 100);
+
+  return Math.round((n1 * (1 / 100) + Number.EPSILON) * 100) / 100;
 }
 
 function updateScreen(content = workingNumber.join("") + "_") {
-  if (content === workingNumber.join("") + "_") {
-    let n = Number(workingNumber.join("")).toFixed(3);
-    screenElement.textContent = Number(workingNumber.join("")).toFixed(3);
-  }
-
-  screenElement.textContent = content;
+  screenElement.textContent = content.substring(0, 6);
   // if the array or number has a decimal in it do the following
 }
 
@@ -86,7 +82,7 @@ function equalsCalled() {
   let calculatedNumber = calculateMath();
   clear();
   numberOneMemory.push(calculatedNumber);
-  updateScreen(calculatedNumber);
+  updateScreen(calculatedNumber.toString());
   workingNumber = numberOneMemory;
 }
 

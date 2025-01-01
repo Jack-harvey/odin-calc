@@ -16,18 +16,32 @@ div {
   border: 1px #585b70 solid;
 }
 
+#content {
+  max-width: 900px;
+  margin: auto;
+  margin-top: 100px;
+}
+
 #calc {
   display: flex;
   flex-direction: column;
 }
 
 #screenRow {
+  height: 150px;
+  display: flex;
+  background-color: #11111b;
+}
+
+#screenRowContent {
   padding-right: 10px;
   text-align: right;
   align-content: center;
   height: 150px;
   font-size: 80px;
   background-color: #11111b;
+  flex: 1;
+  flex-wrap: wrap;
 }
 
 #secondRow {

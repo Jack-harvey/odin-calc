@@ -1,5 +1,5 @@
 const calculatorElement = document.querySelector("#calc");
-const screenElement = document.querySelector("#screenRow");
+const screenElement = document.querySelector("#screenRowContent");
 
 let numberOneMemory = [];
 let numberTwoMemory = [];
@@ -23,10 +23,14 @@ function multiplyNumbers(n1, n2) {
 
 function divideNumbers(n1, n2) {
   if (n1 === 0 || n2 === 0) {
-    updateScreen("err_");
     return "err";
   }
   return n1 / n2;
+}
+
+function percentNumbers() {
+  let n1 = workingNumber.join("");
+  return n1 * (1 / 100);
 }
 
 function updateScreen(content = workingNumber.join("") + "_") {
@@ -75,7 +79,7 @@ function calculateMath() {
       return divideNumbers(n1, n2);
 
     case "percent":
-      return addNumbers(n1, n2);
+      return percentNumbers(n1, n2);
   }
 }
 
@@ -90,6 +94,7 @@ function equalsCalled() {
 function symbolPressed(symbol) {
   let symbolIcon = document.querySelector(`#${symbol}`).textContent;
   if (!buildSecondNumber) {
+    canDotBePressed = true;
     buildSecondNumber = true;
     signMemory = symbol;
   } else {

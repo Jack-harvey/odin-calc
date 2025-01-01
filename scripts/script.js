@@ -81,18 +81,16 @@ function calculateMath() {
 
 function equalsCalled() {
   let calculatedNumber = calculateMath();
-  console.log(calculatedNumber);
+  clear();
+  updateScreen(calculatedNumber);
+  numberOneMemory.push(calculatedNumber);
 }
 
 function symbolPressed(symbol) {
+  let symbolIcon = document.querySelector(`#${symbol}`).textContent;
   buildSecondNumber = true;
-  if (!signMemory) {
-    signMemory = symbol;
-
-    return;
-  }
-
-  //equals
+  signMemory = symbol;
+  updateScreen(workingNumber.join("") + symbolIcon);
 }
 
 function backspace() {

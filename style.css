@@ -50,7 +50,7 @@ div {
   display: flex;
 }
 
-.calcButton {
+.calc-btn {
   min-width: 100px;
   height: 100px;
   text-align: center;

@@ -138,8 +138,35 @@ function buttonPressed(target) {
   } else equalsCalled();
 }
 
+function keyPressed(key) {
+  if (Number.isInteger(Number(key))) {
+    buildNumber(key);
+  } else if (key == "Backspace") {
+    backspace();
+  } else if (key == "Delete") {
+    clear();
+  } else if (key == "=" || key == "Enter") {
+    equalsCalled();
+  } else if (key == "+") {
+    symbolPressed("add");
+  } else if (key == "-") {
+    symbolPressed("neg");
+  } else if (key == "*") {
+    symbolPressed("multi");
+  } else if (key == "/") {
+    symbolPressed("divide");
+  } else if (key == "%") {
+    symbolPressed("percent");
+  }
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   calculatorElement.addEventListener("click", (e) => {
     buttonPressed(e.target);
   });
+});
+
+window.addEventListener("keydown", function (e) {
+  const key = e.key;
+  keyPressed(key);
 });

@@ -1,9 +1,12 @@
 const calculatorElement = document.querySelector("#calc");
+const screenElement = document.querySelector("#screenRow");
 
 let numberOneMemory = [];
 let numberTwoMemory = [];
-let SignMemory = null;
+let signMemory = null;
+let workingNumber = null;
 
+let buildSecondNumber = false;
 let canDotBePressed = true;
 
 function addNumbers(n1, n2) {
@@ -22,84 +25,42 @@ function divideNumbers(n1, n2) {
   return n1 / n2;
 }
 
-function invertPositivity(number) {
-  if (number === 0) return;
-  return number < 0 ? 0 + number : 0 - number;
+function updateScreen() {
+  screenElement.textContent = workingNumber.join("") + "_";
+
+  console.log("workingNumber");
+  console.log(workingNumber.join(""));
+  console.log("numberOneMemory");
+  console.log(numberOneMemory.join(""));
+  console.log("numberTwoMemory");
+  console.log(numberTwoMemory.join(""));
 }
 
-function clear() {
-  numberOneMemory = [];
-  numberTwoMemory = [];
-  SignMemory = null;
+function checkWorkingNumber() {
+  if (buildSecondNumber) workingNumber = numberTwoMemory;
+  else workingNumber = numberOneMemory;
+}
+
+function buildNumber(number) {
+  checkWorkingNumber();
+  if (number === "dot") {
+    workingNumber.push(".");
+    updateScreen();
+    return;
+  }
+  workingNumber.push(Number(number));
   updateScreen();
 }
 
-function updateScreen() {
-  if (SignMemory == null) {
-    const screenElement = document.querySelector("#screenRow");
-    screenElement.textContent = numberOneMemory.join("") + "_";
-  } else {
-    const screenElement = document.querySelector("#screenRow");
-    screenElement.textContent = numberTwoMemory.join("") + "_";
-  }
-}
-
-function dotPressed(state) {
-  canDotBePressed = state === "disableDot" ? false : true;
-}
-
-function numberPressed(number) {
-  if (!canDotBePressed && number === "dot") return;
-  if (number === "dot") {
-    number = ".";
-    dotPressed("disableDot");
-  }
-
-  if (SignMemory == null) {
-    numberOneMemory.push(number);
-    updateScreen();
-  } else {
-    numberTwoMemory.push(number);
-    updateScreen();
-  }
-}
-
-function highlightButton(type) {
-  const button = document.querySelector(`#${type}`);
-  button.classList.toggle("highlight");
-}
-
-function mathButtonPressed(type) {
-  SignMemory = type;
-  highlightButton(type);
-}
-
-function signPressed(type) {
-  if (type === "clr") clear();
-  if (
-    type === "divide" ||
-    type === "multi" ||
-    type === "neg" ||
-    type === "add"
-  ) {
-    mathButtonPressed(type);
-  }
-  // if (type === "")
-  // if (type === "")
-  // if (type === "")
-  // if (type === "")
-}
-
-function buttonPressed(button) {
-  if (!isNaN(button) || button === "dot") {
-    numberPressed(button);
-  } else {
-    signPressed(button);
+function buttonPressed(target) {
+  let targetClassList = target.classList;
+  if (targetClassList.contains("number")) {
+    buildNumber(target.getAttribute("id"));
   }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
   calculatorElement.addEventListener("click", (e) => {
-    buttonPressed(e.target.getAttribute("id"));
+    buttonPressed(e.target);
   });
 });
